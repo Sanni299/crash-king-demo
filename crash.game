@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crash King - Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #facc15;
+    }
+    .game-box {
+      background-color: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+    .crash-number {
+      font-size: 36px;
+      color: #22c55e;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .wallet {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Crash King Demo Game</h1>
+  <div class="game-box">
+    <div>Wallet Balance: <span class="wallet" id="wallet">₹100</span></div>
+    <div class="crash-number" id="crashNumber">1.00x</div>
+    <button class="btn" onclick="startGame()">Start Game (₹10)</button>
+  </div>  <script>
+    let interval;
+    let multiplier = 1;
+    let wallet = 100;
+
+    function startGame() {
+      if (wallet < 10) {
+        alert("Not enough balance!");
+        return;
+      }
+      wallet -= 10;
+      document.getElementById("wallet").textContent = `₹${wallet}`;
+      multiplier = 1;
+      document.getElementById("crashNumber").textContent = multiplier.toFixed(2) + "x";
+      clearInterval(interval);
+      interval = setInterval(() => {
+        multiplier += 0.01;
+        document.getElementById("crashNumber").textContent = multiplier.toFixed(2) + "x";
+        if (multiplier >= 5) {
+          clearInterval(interval);
+          alert("Crashed at " + multiplier.toFixed(2) + "x");
+        }
+      }, 100);
+    }
+  </script></body>
+</html>
